@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
+    <logger name="com.aztec" level="DEBUG"/>
+    <!--
+    <logger name="org.apache.http.wire" level="INFO"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="com.github.tomakehurst.wiremock" level="TRACE"/>
+    <logger name="com.sun.xml.ws.transport.http.client.HttpTransportPipe" level="TRACE"/>
+    -->
+
+</configuration>

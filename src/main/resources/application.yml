@@ -1,0 +1,51 @@
+application:
+    version: '@project.version@'
+
+server:
+    port: 9001
+
+spring:
+    application:
+        name: account-lookup
+    data:
+        rest:
+            detection-strategy: annotated
+    jackson:
+        serialization:
+            WRITE_DATES_AS_TIMESTAMPS: false
+    main:
+        allow-bean-definition-overriding: true
+
+account-lookup:
+    endpoints:
+        bankOne:
+            baseUrl: http://bankone
+            accountLookupPath: /api/
+            connectTimeoutMillis: 3000
+            readTimeoutMillis: 15000
+        bankTwo:
+            baseUrl: http://banktwo
+            accountLookupPath: /api/
+            connectTimeoutMillis: 3000
+            readTimeoutMillis: 15000
+
+# https://resilience4j.readme.io/docs/circuitbreaker
+resilience4j.circuitbreaker:
+    configs:
+        default:
+            registerHealthIndicator: true
+            # Failure rate threshold percentage
+            failureRateThreshold: 10
+            # Minimum number of call attempts before rate threshold percentage is checked.
+            ringBufferSizeInClosedState: 10
+            # How long to wait until switching to half open.
+            waitDurationInOpenState: 3s
+            # Number of successful requests before moving back to closed from half open.
+            ringBufferSizeInHalfOpenState: 5
+            # Exceptions that do not count towards opening the circuit.
+            ignoreExceptions:
+              # Ignore 4xx exceptions.
+              - org.springframework.web.client.HttpClientErrorException
+    instances:
+        lookupAccount:
+            baseConfig: default

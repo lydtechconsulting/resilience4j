@@ -1,0 +1,12 @@
+account-lookup:
+    endpoints:
+        bankOne:
+            baseUrl: http://localhost:${wiremock.server.port}/bankone
+            accountLookupPath: /api/account
+            connectTimeoutMillis: 3000
+            readTimeoutMillis: 3000
+        bankTwo:
+            baseUrl: http://localhost:${wiremock.server.port}/banktwo
+            accountLookupPath: /api/account
+            connectTimeoutMillis: 3000
+            readTimeoutMillis: 3000
